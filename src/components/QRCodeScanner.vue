@@ -1,12 +1,8 @@
 <template>
-  <div class="hello">
-    <p class="error">{{ error }}</p>
-
-    <p class="decode-result">
-      Last result: <b>{{ result }}</b>
-    </p>
-
-    <qrcode-stream @decode="onDecode" @init="onInit" />
+  <div id="qrcode-scanner">
+    <div class="qrcode">
+      <qrcode-stream :camera="camera" @decode="onDecode" @init="onInit" />
+    </div>
   </div>
 </template>
 
@@ -14,13 +10,14 @@
 import { defineComponent, ref } from "@vue/composition-api";
 import { QrcodeStream } from "vue-qrcode-reader";
 export default defineComponent({
-  name: "HelloWorld",
+  name: "QRCodeScanner",
   components: {
     QrcodeStream
   },
   setup() {
     const result = ref("");
     const error = ref("");
+    const camera = ref("auto");
 
     function onDecode(resultStr: string) {
       result.value = resultStr;
@@ -46,7 +43,7 @@ export default defineComponent({
       }
     }
 
-    return { result, error, onDecode, onInit };
+    return { result, error, onDecode, onInit, camera };
   }
 });
 </script>

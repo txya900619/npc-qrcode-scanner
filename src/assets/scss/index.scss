@@ -1,5 +1,19 @@
+@import "./mixins";
+@import "./components/success-dialog";
+@import "./components/fail-dialog";
+@import "./components/qrcode-scanner";
+@import "./pages/scan-page";
+@import "./pages/home";
+
+@include reset;
+@include success-dialog;
+@include fail-dialog;
+@include qrcode-scanner;
+@include scan-page;
+@include home;
+
 #app {
   height: 100vh;
-  width: 100w;
+  width: 100vw;
   text-align: center;
 }

@@ -1,0 +1,92 @@
+@mixin home {
+  #home {
+    background-color: steelblue;
+    height: 100vh;
+    width: 100vw;
+    text-align: center;
+    .card {
+      background-color: white;
+      width: 30vw;
+      height: 17vw;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      display: flex;
+      flex-direction: column;
+      border-radius: 10px;
+
+      @media (max-width: 768px) {
+        width: 90vw;
+        height: 51vw;
+      }
+      .title {
+        width: 100%;
+        height: 20%;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        background-color: cornflowerblue;
+      }
+
+      .content {
+        width: 100%;
+        height: 80%;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+        .select-warp {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          select {
+            width: 10vw;
+            @media (max-width: 768px) {
+              width: 20vw;
+            }
+          }
+        }
+      }
+      label {
+        font-size: 1.5vw;
+        @media (max-width: 768px) {
+          font-size: 4vw;
+        }
+      }
+      button {
+        width: 4.5vw;
+        height: 2.25vw;
+        font-size: 1.2vw;
+        border-radius: 8px;
+        display: inline-block;
+        font-weight: 400;
+        text-align: center;
+        border: 1px solid transparent;
+        white-space: nowrap;
+        color: #fff;
+        background-color: #007bff;
+        border-color: #007bff;
+        &.disabled,
+        &:disabled {
+          opacity: 0.65;
+          background-color: #007bff;
+          border-color: #007bff;
+        }
+        &:hover:enabled {
+          color: #fff;
+          background-color: #0069d9;
+          border-color: #0062cc;
+        }
+        @media (max-width: 768px) {
+          width: 13.5vw;
+          height: 6.75vw;
+          font-size: 3.6vw;
+        }
+      }
+    }
+  }
+}

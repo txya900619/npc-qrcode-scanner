@@ -1,0 +1,17 @@
+@mixin qrcode-scanner {
+  #qrcode-scanner {
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    background-color: steelblue;
+    div {
+      width: 70vw;
+      height: calc(30vh + 25vw);
+      margin: auto;
+
+      @media (max-width: 768px) {
+        width: 80vw;
+      }
+    }
+  }
+}
