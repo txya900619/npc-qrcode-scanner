@@ -1,6 +1,7 @@
 @import "./mixins";
 @import "./components/success-dialog";
 @import "./components/fail-dialog";
+@import "./components/skip-dialog";
 @import "./components/qrcode-scanner";
 @import "./components/circular-progress";
 @import "./pages/scan-page";
@@ -9,6 +10,7 @@
 @include reset;
 @include success-dialog;
 @include fail-dialog;
+@include skip-dialog;
 @include qrcode-scanner;
 @include circular-progress;
 @include scan-page;

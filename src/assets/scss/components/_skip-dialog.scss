@@ -1,0 +1,11 @@
+@import "../mixins/dialog";
+
+@mixin skip-dialog {
+  #skip-dialog {
+    @include dialog;
+
+    .title {
+      background-color: red;
+    }
+  }
+}

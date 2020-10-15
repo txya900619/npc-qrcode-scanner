@@ -13,6 +13,7 @@
     <QRCodeScanner @signin="signin" :camera="camera" />
     <SuccessDialog v-if="successDialog" @close="successClose" />
     <FailDialog v-if="failDialog" @close="failClose" @confirm="failConfirm" />
+    <SkipDialog v-if="skipDialog" @close="skipClose" />
     <CircularProgress v-if="waiting" />
   </div>
 </template>
@@ -23,6 +24,7 @@ import QRCodeScanner from "../components/QRCodeScanner.vue";
 import SuccessDialog from "../components/SuccessDialog.vue";
 import FailDialog from "../components/FailDialog.vue";
 import CircularProgress from "../components/CircularProgress.vue";
+import SkipDialog from "../components/SkipDialog.vue";
 import Axios, { AxiosResponse } from "axios";
 
 export default defineComponent({
@@ -32,22 +34,24 @@ export default defineComponent({
     QRCodeScanner,
     SuccessDialog,
     FailDialog,
-    CircularProgress
+    CircularProgress,
+    SkipDialog
   },
   setup(props, { emit }) {
     const failDialog = ref(false);
     const successDialog = ref(false);
     const camera = ref("auto");
     const waiting = ref(false);
+    const skipDialog = ref(false);
     let tmpStudentToken = "";
 
     function previousPage() {
       emit("previousPage");
     }
-    async function signin(studentToken: string, paid?: any) {
+    async function signin(studentToken: string, paid?: boolean) {
       camera.value = "off";
       waiting.value = true;
-      let data: AxiosResponse<{ success: boolean }>;
+      let data: AxiosResponse<{ success: boolean; isSignIn?: boolean }>;
       try {
         data = await Axios.post(
           "https://script.google.com/macros/s/AKfycbxWVyyeUqu2HvGtLBqctPtMkptXeqzvaKPD9LLZ6Wvn7-lV6Vzp/exec",
@@ -70,6 +74,11 @@ export default defineComponent({
         return;
       }
       if (!data.data.success) {
+        if (data.data.isSignIn) {
+          waiting.value = false;
+          skipDialog.value = true;
+          return;
+        }
         waiting.value = false;
         tmpStudentToken = studentToken;
         failDialog.value = true;
@@ -92,6 +101,11 @@ export default defineComponent({
       signin(tmpStudentToken, true);
     }
 
+    function skipClose() {
+      skipDialog.value = false;
+      camera.value = "auto";
+    }
+
     return {
       failDialog,
       successDialog,
@@ -101,7 +115,9 @@ export default defineComponent({
       failClose,
       waiting,
       previousPage,
-      failConfirm
+      failConfirm,
+      skipDialog,
+      skipClose
     };
   }
 });
