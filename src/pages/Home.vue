@@ -56,7 +56,7 @@ export default defineComponent({
     const selcetedCourseSpreadsheetsID = ref("");
     const password = ref("");
     const checkInput = computed(
-      () => selcetedCourseSpreadsheetsID.value !== "" && password.value !== ""
+      () => selcetedCourseSpreadsheetsID.value !== ""
     );
     const authToken = ref("");
     const verifying = ref(false);

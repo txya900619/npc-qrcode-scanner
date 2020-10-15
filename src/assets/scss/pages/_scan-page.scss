@@ -54,6 +54,9 @@
         &:focus::before {
           opacity: 0.24;
         }
+        &:active {
+          color: inherit;
+        }
       }
     }
     height: 100vh;

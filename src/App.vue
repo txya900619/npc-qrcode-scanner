@@ -3,7 +3,7 @@
     v-if="spreadsheetsID"
     :authToken="authToken"
     :spreadsheetsID="spreadsheetsID"
-    @previousPage="spreadsheetsID.value = ''"
+    @previousPage="spreadsheetsID = ''"
   />
   <Home v-else :semesters="semesters" @verified="verified" @go="go" />
 </template>
