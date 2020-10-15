@@ -23,7 +23,7 @@ import QRCodeScanner from "../components/QRCodeScanner.vue";
 import SuccessDialog from "../components/SuccessDialog.vue";
 import FailDialog from "../components/FailDialog.vue";
 import CircularProgress from "../components/CircularProgress.vue";
-import Axios from "axios";
+import Axios, { AxiosResponse } from "axios";
 
 export default defineComponent({
   name: "ScanPage",
@@ -47,8 +47,9 @@ export default defineComponent({
     async function signin(studentToken: string, paid?: any) {
       camera.value = "off";
       waiting.value = true;
+      let data: AxiosResponse<{ success: boolean }>;
       try {
-        await Axios.post(
+        data = await Axios.post(
           "https://script.google.com/macros/s/AKfycbxWVyyeUqu2HvGtLBqctPtMkptXeqzvaKPD9LLZ6Wvn7-lV6Vzp/exec",
           {
             authToken: props.authToken,
@@ -68,9 +69,14 @@ export default defineComponent({
         failDialog.value = true;
         return;
       }
-
-      waiting.value = false;
-      successDialog.value = true;
+      if (!data.data.success) {
+        waiting.value = false;
+        tmpStudentToken = studentToken;
+        failDialog.value = true;
+      } else {
+        waiting.value = false;
+        successDialog.value = true;
+      }
     }
 
     function successClose() {
