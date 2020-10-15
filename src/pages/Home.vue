@@ -65,8 +65,9 @@ export default defineComponent({
       let data: AxiosResponse<{ authToken: string; semesters: Semester[] }>;
       verifying.value = true;
       try {
-        data = await Axios.get(
-          `https://script.google.com/macros/s/AKfycbyZ2crJbCHObuDON_ocrfRktn8tqgM2Nm1VBFYIJlbLHGCSH_w/exec?password=${password.value}`
+        data = await Axios.post(
+          "https://script.google.com/macros/s/AKfycbyZ2crJbCHObuDON_ocrfRktn8tqgM2Nm1VBFYIJlbLHGCSH_w/exec",
+          { password: password }
         );
       } catch (e) {
         verifying.value = false;
