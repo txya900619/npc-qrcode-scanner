@@ -58,6 +58,11 @@ export default defineComponent({
             authToken: props.authtoken,
             spreadsheetsID: props.spreadsheetsID,
             studentToken: studentToken
+          },
+          {
+            headers: {
+              "Content-Type": "text/plain"
+            }
           }
         );
       } catch (e) {
