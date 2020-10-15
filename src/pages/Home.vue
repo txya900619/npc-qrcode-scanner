@@ -66,7 +66,7 @@ export default defineComponent({
       verifying.value = true;
       try {
         data = await Axios.post(
-          "https://script.google.com/macros/s/AKfycbyZ2crJbCHObuDON_ocrfRktn8tqgM2Nm1VBFYIJlbLHGCSH_w/exec",
+          "https://script.google.com/macros/s/AKfycbyOE7EtpmoWSqteMaoZ0HhjcyjZwlRjD1SCsnw5ESmGXiI53lg/exec",
           { password: password }
         );
       } catch (e) {

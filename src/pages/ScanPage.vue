@@ -53,7 +53,7 @@ export default defineComponent({
       waiting.value = true;
       try {
         await Axios.post(
-          "https://script.google.com/macros/s/AKfycbyZ2crJbCHObuDON_ocrfRktn8tqgM2Nm1VBFYIJlbLHGCSH_w/exec",
+          "https://script.google.com/macros/s/AKfycbxWVyyeUqu2HvGtLBqctPtMkptXeqzvaKPD9LLZ6Wvn7-lV6Vzp/exec",
           {
             authToken: props.authtoken,
             spreadsheetsID: props.spreadsheetsID,
