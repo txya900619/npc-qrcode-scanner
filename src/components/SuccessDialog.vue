@@ -3,7 +3,7 @@
     <div class="title"></div>
     <div class="content">
       <p class="content-text">簽到成功</p>
-      <button class="content-button">確認</button>
+      <button class="content-button" @click="comfirmClick">確認</button>
     </div>
   </div>
 </template>

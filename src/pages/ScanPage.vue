@@ -12,8 +12,8 @@
     </div>
     <QRCodeScanner @signin="signin" :camera="camera" />
     <SuccessDialog v-if="successDialog" @close="successClose" />
-    <FailDialog v-if="failDialog" @close="failClose" />
-    <circular-progress v-if="waiting" />
+    <FailDialog v-if="failDialog" @close="failClose" @confirm="failConfirm" />
+    <CircularProgress v-if="waiting" />
   </div>
 </template>
 
@@ -22,42 +22,39 @@ import { defineComponent, ref } from "@vue/composition-api";
 import QRCodeScanner from "../components/QRCodeScanner.vue";
 import SuccessDialog from "../components/SuccessDialog.vue";
 import FailDialog from "../components/FailDialog.vue";
+import CircularProgress from "../components/CircularProgress.vue";
 import Axios from "axios";
 
 export default defineComponent({
   name: "ScanPage",
-  props: ["authtoken", "spreadsheetsID"],
+  props: ["authToken", "spreadsheetsID"],
   components: {
     QRCodeScanner,
     SuccessDialog,
-    FailDialog
+    FailDialog,
+    CircularProgress
   },
   setup(props, { emit }) {
     const failDialog = ref(false);
     const successDialog = ref(false);
     const camera = ref("auto");
     const waiting = ref(false);
-    function successClose() {
-      successDialog.value = false;
-      camera.value = "auto";
-    }
-    function failClose() {
-      failDialog.value = false;
-      camera.value = "auto";
-    }
+    let tmpStudentToken = "";
+
     function previousPage() {
       emit("previousPage");
     }
-    async function signin(studentToken: string) {
+    async function signin(studentToken: string, paid?: any) {
       camera.value = "off";
       waiting.value = true;
       try {
         await Axios.post(
           "https://script.google.com/macros/s/AKfycbxWVyyeUqu2HvGtLBqctPtMkptXeqzvaKPD9LLZ6Wvn7-lV6Vzp/exec",
           {
-            authToken: props.authtoken,
-            spreadsheetsID: props.spreadsheetsID,
-            studentToken: studentToken
+            authToken: props.authToken,
+            spreadsheetsID: props.spreadsheetsID.value,
+            studentToken: studentToken,
+            paid
           },
           {
             headers: {
@@ -67,6 +64,7 @@ export default defineComponent({
         );
       } catch (e) {
         waiting.value = false;
+        tmpStudentToken = studentToken;
         failDialog.value = true;
         return;
       }
@@ -74,6 +72,20 @@ export default defineComponent({
       waiting.value = false;
       successDialog.value = true;
     }
+
+    function successClose() {
+      successDialog.value = false;
+      camera.value = "auto";
+    }
+    function failClose() {
+      failDialog.value = false;
+      camera.value = "auto";
+    }
+    function failConfirm() {
+      failDialog.value = false;
+      signin(tmpStudentToken, true);
+    }
+
     return {
       failDialog,
       successDialog,
@@ -82,7 +94,8 @@ export default defineComponent({
       successClose,
       failClose,
       waiting,
-      previousPage
+      previousPage,
+      failConfirm
     };
   }
 });

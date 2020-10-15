@@ -29,7 +29,7 @@ export default defineComponent({
   setup(_props, { emit }) {
     const checked = ref(false);
     function confirmClick() {
-      emit("close");
+      emit("confirm");
     }
     function cancelClick() {
       emit("close");
