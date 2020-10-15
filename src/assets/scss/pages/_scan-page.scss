@@ -1,5 +1,61 @@
 @mixin scan-page {
   #scan-page {
+    .navbar {
+      position: absolute;
+      width: 100%;
+      height: 56px;
+      background-color: white;
+      box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2),
+        0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
+      transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+        background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+        left 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+        right 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+        max-width 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+        width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: center;
+      button {
+        height: 36px;
+        width: 36px;
+        align-items: center;
+        border-radius: 50%;
+        display: inline-flex;
+        justify-content: center;
+        position: relative;
+        transition-duration: 0.28s;
+        transition-property: box-shadow, transform, opacity;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        background-color: transparent;
+        border-style: none;
+        &::before {
+          border-radius: inherit;
+          bottom: 0;
+          color: inherit;
+          content: "";
+          left: 0;
+          opacity: 0;
+          pointer-events: none;
+          position: absolute;
+          right: 0;
+          top: 0;
+          transition: opacity 0.2s cubic-bezier(0.4, 0, 0.6, 1);
+          background-color: currentColor;
+          box-sizing: inherit;
+        }
+        &:hover::before {
+          opacity: 0.08;
+        }
+        &:focus::before {
+          opacity: 0.24;
+        }
+      }
+    }
     height: 100vh;
     width: 100vw;
     text-align: center;

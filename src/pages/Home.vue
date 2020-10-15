@@ -34,20 +34,23 @@
       <div v-else class="content">
         <div>
           <label>通關密語：</label>
-          <input v-model="password" type="password" />
+          <input v-model="password" type="password" @keyup.enter="verify" />
         </div>
         <button @click="verify" :disabled="verifying">驗證</button>
       </div>
     </div>
+    <circular-progress v-if="verifying" />
   </div>
 </template>
 <script lang="ts">
 import { computed, defineComponent, Ref, ref } from "@vue/composition-api";
 import Axios, { AxiosResponse } from "axios";
+import CircularProgress from "../components/CircularProgress.vue";
 
 export default defineComponent({
   name: "Home",
   props: ["semesters"],
+  components: { CircularProgress },
   setup(props, { emit }) {
     const selectedSemesterCourses: Ref<Course[]> = ref([]);
     const selcetedCourseSpreadsheetsID = ref("");

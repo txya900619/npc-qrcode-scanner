@@ -11,16 +11,17 @@ import { defineComponent, ref } from "@vue/composition-api";
 import { QrcodeStream } from "vue-qrcode-reader";
 export default defineComponent({
   name: "QRCodeScanner",
+  props: {
+    camera: String
+  },
   components: {
     QrcodeStream
   },
-  setup() {
-    const result = ref("");
+  setup(props, { emit }) {
     const error = ref("");
-    const camera = ref("auto");
 
     function onDecode(resultStr: string) {
-      result.value = resultStr;
+      emit("signin", resultStr);
     }
 
     async function onInit(promise: Promise<void>) {
@@ -40,10 +41,11 @@ export default defineComponent({
         } else if (e.name === "StreamApiNotSupportedError") {
           error.value = "ERROR: Stream API is not supported in this browser";
         }
+        console.log(error);
       }
     }
 
-    return { result, error, onDecode, onInit, camera };
+    return { error, onDecode, onInit };
   }
 });
 </script>

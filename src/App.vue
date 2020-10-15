@@ -1,5 +1,10 @@
 <template>
-  <ScanPage v-if="spreadsheetsID" />
+  <ScanPage
+    v-if="spreadsheetsID"
+    :authToken="authToken"
+    :spreadsheetsID="spreadsheetsID"
+    @previousPage="spreadsheetsID.value = ''"
+  />
   <Home v-else :semesters="semesters" @verified="verified" @go="go" />
 </template>
 
@@ -8,7 +13,6 @@ import { defineComponent, Ref, ref } from "@vue/composition-api";
 import "./assets/scss/index.scss";
 import Home from "./pages/Home.vue";
 import ScanPage from "./pages/ScanPage.vue";
-
 export default defineComponent({
   name: "App",
   components: {

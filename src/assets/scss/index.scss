@@ -2,6 +2,7 @@
 @import "./components/success-dialog";
 @import "./components/fail-dialog";
 @import "./components/qrcode-scanner";
+@import "./components/circular-progress";
 @import "./pages/scan-page";
 @import "./pages/home";
 
@@ -9,6 +10,7 @@
 @include success-dialog;
 @include fail-dialog;
 @include qrcode-scanner;
+@include circular-progress;
 @include scan-page;
 @include home;
 
