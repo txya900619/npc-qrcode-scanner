@@ -6,8 +6,7 @@
 @import "./components/circular-progress";
 @import "./pages/scan-page";
 @import "./pages/home";
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC&family=Open+Sans&display=swap");
 @include reset;
 @include success-dialog;
 @include fail-dialog;
@@ -24,5 +23,5 @@
 }
 
 * {
-  font-family: "Noto Sans TC", sans-serif;
+  font-family: "Open Sans", "Noto Sans TC", sans-serif;
 }
